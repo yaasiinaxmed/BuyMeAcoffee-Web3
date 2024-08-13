@@ -2,7 +2,7 @@ import React from "react";
 
 function Nav() {
   return (
-    <div className="w-full flex items-center justify-between">
+    <div className="fixed top-[10px] w-full flex items-center justify-between container mx-auto p-6">
       <h2 className="text-white font-bold">
         Buy Me a <span className="text-[#DB6804]">Coffee</span>{" "}
       </h2>
