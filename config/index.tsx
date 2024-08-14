@@ -7,7 +7,7 @@ import { mainnet, sepolia } from "wagmi/chains";
 export const projectId = "b309f3de68f9e7633077bf4d62d4e939";
 
 // Create a metadata object
-const metadata = {
+export const metadata = {
   name: "Buy Me a Coffee",
   description: "Buy Me a Coffee - Web3 | Yasin Ahmed",
   url: "https://web3modal.com", // origin must match your domain & subdomain

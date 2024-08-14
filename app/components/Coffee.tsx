@@ -16,7 +16,7 @@ function Coffee() {
   const totalAmountInETH = (select * coffeePriceInETH).toFixed(3);
 
   // Use wagmi's useSendTransaction to send the transaction
-  const { sendTransaction, data, isSuccess, isLoading, isError, error } = useSendTransaction();
+  const { sendTransaction, data, isSuccess, isPending, isError, error } = useSendTransaction();
 
   useEffect(() => {
     if (isSuccess && data) {
@@ -110,9 +110,9 @@ function Coffee() {
       <button
         onClick={handleSupportClick}
         className={`mt-4 py-3 px-5 bg-[#DB6804] rounded-lg text-white hover:scale-105 flex items-center justify-center`}
-        disabled={isLoading} // Disable button during loading
+        disabled={isPending} // Disable button during loading
       >
-        {isLoading ? "Sending..." : "Support"} {/* Change button text during loading */}
+        {isPending ? "Sending..." : "Support"} {/* Change button text during loading */}
       </button>
       {message && (
         <p className="mt-2 text-white">{message}</p>
