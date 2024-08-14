@@ -1,19 +1,84 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { GameIconsCoffeeCup } from "./GameIconsCoffeeCup";
-import { useAccount } from "wagmi";
+import { useAccount, useSendTransaction } from "wagmi";
+import { parseUnits } from "ethers"; // For parsing ETH to Wei
 
 function Coffee() {
   const [select, setSelect] = useState(0);
+  const [message, setMessage] = useState('');
+  const [loading, setLoading] = useState(false);
   const { isConnected } = useAccount();
-  const [message, setMessage] = useState('')
   const coffeePriceInETH = 0.025;
+
+  // Calculate total ETH amount based on selected coffee
+  const totalAmountInETH = (select * coffeePriceInETH).toFixed(3);
+
+  // Use wagmi's useSendTransaction to send the transaction
+  const { sendTransaction, data, isSuccess, isLoading, isError, error } = useSendTransaction();
+
+  useEffect(() => {
+    if (isSuccess && data) {
+      setMessage("Thanks for supporting!");
+      setLoading(false);
+
+      // Hide the message after 1 minute (60000 milliseconds)
+      const timer = setTimeout(() => {
+        setMessage('');
+      }, 60000); // 60 seconds
+
+      // Clear the timer if the component unmounts before 1 minute
+      return () => clearTimeout(timer);
+    }
+
+    if (isError && error) {
+      console.error(`Transaction error: ${error.message}`);
+      setLoading(false);
+      setMessage("Transaction error. Please try again.");
+
+      // Hide the error message after 10 seconds
+      const timer = setTimeout(() => {
+        setMessage('');
+      }, 10000); // 10 seconds
+
+      // Clear the timer if the component unmounts before 10 seconds
+      return () => clearTimeout(timer);
+    }
+  }, [isSuccess, data, isError, error]);
 
   const handleSupportClick = () => {
     if (!isConnected) {
       setMessage("Please connect your wallet.");
+
+      // Hide the message after 10 seconds
+      const timer = setTimeout(() => {
+        setMessage('');
+      }, 10000); // 10 seconds
+
+      // Clear the timer if the component unmounts before 10 seconds
+      return () => clearTimeout(timer);
     }
+
+    if (select <= 0 || isNaN(select)) {
+      setMessage("Please select a valid number of coffees.");
+
+      // Hide the message after 10 seconds
+      const timer = setTimeout(() => {
+        setMessage('');
+      }, 10000); // 10 seconds
+
+      // Clear the timer if the component unmounts before 10 seconds
+      return () => clearTimeout(timer);
+    }
+
+    setLoading(true);
+
+    // Send the transaction
+    sendTransaction({
+      to: '0x02F4f9F6d259bf99E1a1a0FFef3640C12038E03C', // Replace with your receiving address
+      value: parseUnits(totalAmountInETH, 'ether'), // Convert ETH to Wei
+    });
   };
 
   return (
@@ -39,19 +104,18 @@ function Coffee() {
       </div>
       {select > 0 && (
         <p className="mt-2 text-white">
-          {select} coffee = {(select * coffeePriceInETH).toFixed(3)} ETH
+          {select} coffee(s) = {(select * coffeePriceInETH).toFixed(3)} ETH
         </p>
       )}
       <button
         onClick={handleSupportClick}
-        className={`mt-4 py-3 px-5 bg-[#DB6804] rounded-lg text-white hover:scale-105`}
+        className={`mt-4 py-3 px-5 bg-[#DB6804] rounded-lg text-white hover:scale-105 flex items-center justify-center`}
+        disabled={isLoading} // Disable button during loading
       >
-        Support
+        {isLoading ? "Sending..." : "Support"} {/* Change button text during loading */}
       </button>
-      {!isConnected && (
-        <p className="mt-2 text-white">
-         {message}
-        </p>
+      {message && (
+        <p className="mt-2 text-white">{message}</p>
       )}
     </div>
   );
