@@ -20,7 +20,7 @@ function Coffee() {
 
   useEffect(() => {
     if (isSuccess && data) {
-      setMessage("Thanks for supporting!");
+      setMessage("Thank you for the supporting! 🎉");
       setLoading(false);
 
       // Hide the message after 1 minute (60000 milliseconds)
