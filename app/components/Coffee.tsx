@@ -76,7 +76,7 @@ function Coffee() {
 
     // Send the transaction
     sendTransaction({
-      to: '0x02F4f9F6d259bf99E1a1a0FFef3640C12038E03C', // Replace with your receiving address
+      to: '0x27145Ef357a6ca0aE4424113f458abEb553A4d22', 
       value: parseUnits(totalAmountInETH, 'ether'), // Convert ETH to Wei
     });
   };
