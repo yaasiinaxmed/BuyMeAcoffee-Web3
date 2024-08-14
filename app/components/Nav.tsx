@@ -1,4 +1,5 @@
 import React from "react";
+import ConnectWallet from "./ConnectWallet";
 
 function Nav() {
   return (
@@ -7,9 +8,7 @@ function Nav() {
         Buy Me a <span className="text-[#DB6804]">Coffee</span>{" "}
       </h2>
       {/* connect Wallet */}
-      <button className="p-3 px-5 bg-[#DB6804] rounded-lg text-white hover:scale-105">
-        Connect Wallet
-      </button>
+      <ConnectWallet />
     </div>
   );
 }
