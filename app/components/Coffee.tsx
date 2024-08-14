@@ -2,9 +2,19 @@
 
 import React, { useState } from "react";
 import { GameIconsCoffeeCup } from "./GameIconsCoffeeCup";
+import { useAccount } from "wagmi";
 
 function Coffee() {
   const [select, setSelect] = useState(0);
+  const { isConnected } = useAccount();
+  const [message, setMessage] = useState('')
+  const coffeePriceInETH = 0.025;
+
+  const handleSupportClick = () => {
+    if (!isConnected) {
+      setMessage("Please connect your wallet.");
+    }
+  };
 
   return (
     <div className="flex flex-col gap-3 items-center">
@@ -27,12 +37,22 @@ function Coffee() {
           </div>
         ))}
       </div>
+      {select > 0 && (
+        <p className="mt-2 text-white">
+          {select} coffee = {(select * coffeePriceInETH).toFixed(3)} ETH
+        </p>
+      )}
       <button
-        className={`mt-4 py-3 px-5 bg-[#DB6804]
-        rounded-lg text-white hover:scale-105`}
+        onClick={handleSupportClick}
+        className={`mt-4 py-3 px-5 bg-[#DB6804] rounded-lg text-white hover:scale-105`}
       >
         Support
       </button>
+      {!isConnected && (
+        <p className="mt-2 text-white">
+         {message}
+        </p>
+      )}
     </div>
   );
 }
