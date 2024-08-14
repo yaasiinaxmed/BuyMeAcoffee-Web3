@@ -18,7 +18,7 @@ dependencies:
     specifier: 14.2.1
     version: 14.2.1(@babel/core@7.25.2)(react-dom@18.3.1)(react@18.3.1)
   react:
-    specifier: ^18.3.1
+    specifier: ^18.2.0
     version: 18.3.1
   react-dom:
     specifier: ^18.3.1
@@ -26,6 +26,9 @@ dependencies:
   react-icons:
     specifier: ^5.3.0
     version: 5.3.0(react@18.3.1)
+  react-native:
+    specifier: 0.74.5
+    version: 0.74.5(@babel/core@7.25.2)(@babel/preset-env@7.25.3)(@types/react@18.3.3)(react@18.3.1)
   viem:
     specifier: ^2.19.4
     version: 2.19.4(typescript@5.5.4)
