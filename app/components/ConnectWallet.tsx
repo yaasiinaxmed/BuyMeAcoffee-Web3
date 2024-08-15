@@ -22,7 +22,7 @@ const ConnectWallet: React.FC = () => {
           className="flex items-center justify-center gap-1 p-3 px-5 bg-[#DB6804] rounded-lg text-white hover:scale-105"
         >
           <IoWallet />
-           Connect Wallet
+           Connect <span className="hidden md:block">Wallet</span>
         </button>
       ) : (
         <button

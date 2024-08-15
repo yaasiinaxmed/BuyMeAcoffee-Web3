@@ -2,15 +2,20 @@ import Image from "next/image";
 import Nav from "./components/Nav";
 import Profile from "./components/Profile";
 import Coffee from "./components/Coffee";
+import Footer from "./components/Footer";
 
 export default function Home() {
   return (
-    <main className="flex h-[100vh] container mx-auto flex-col gap-3 items-center justify-center p-6 md:p-12">
+    <main className="container mx-auto">
       {/* Navigation */}
       <Nav />
       {/* Content */}
-      <Profile />
-      <Coffee />
+      <div className="flex h-[100vh] container mx-auto flex-col gap-3 items-center justify-center">
+        <Profile />
+        <Coffee />
+      </div>
+      {/* Footer */}
+      {/* <Footer/> */}
     </main>
   );
 }

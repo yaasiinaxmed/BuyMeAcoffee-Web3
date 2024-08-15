@@ -104,7 +104,7 @@ function Coffee() {
       </div>
       {select > 0 && (
         <p className="mt-2 text-white">
-          {select} coffee(s) = {(select * coffeePriceInETH).toFixed(3)} ETH
+          {select} coffee = {(select * coffeePriceInETH).toFixed(3)} ETH
         </p>
       )}
       <button
